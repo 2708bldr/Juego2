@@ -10,12 +10,7 @@ Exercises
 
 from random import randrange
 from turtle import *
-
-from freegames import square, vector
-
-food = vector(0, 0)
-snake = [vector(10, 0)]
-aim = vector(0, -10)
+from freegames import vector
 
 
 def change(x, y):
@@ -28,6 +23,17 @@ def inside(head):
     """Return True if head inside boundaries."""
     return -200 < head.x < 190 and -200 < head.y < 190
 
+
+def square(x, y, size, color_name):
+    up()
+    goto(x, y)
+    down()
+    color(color_name)
+    begin_fill()
+    for count in range(4):
+        forward(size)
+        left(90)
+    end_fill()
 
 def move():
     """Move snake forward one segment."""
@@ -51,12 +57,18 @@ def move():
     clear()
 
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, "black")
 
-    square(food.x, food.y, 9, 'green')
+    square(food.x, food.y, 9, "green")
     update()
     ontimer(move, 100)
 
+food = vector(0, 0)
+food.x = randrange(-15, 15) * 10
+food.y = randrange(-15, 15) * 10
+
+snake = [vector(10, 0)]
+aim = vector(0, -10)
 
 setup(420, 420, 370, 0)
 hideturtle()
